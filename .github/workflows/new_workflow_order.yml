@@ -1,0 +1,29 @@
+name: Standard Order
+
+on: push
+
+jobs:
+  hygiene-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm run lint
+
+  taste-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install
+      - run: npm test
+
+  cook-biryani:
+    needs: [hygiene-check, taste-test]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🍲 Cooking Biryani..."
+
+  serve-food:
+    needs: cook-biryani
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run deploy
