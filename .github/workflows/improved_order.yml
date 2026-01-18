@@ -4,26 +4,56 @@ on: push
 
 jobs:
   hygiene-check:
+    name: Hygiene Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: npm run lint
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Lint Check
+        run: npm run lint
+
 
   taste-test:
+    name: Taste Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: npm install
-      - run: npm test
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Unit Tests
+        run: npm test
+
 
   cook-biryani:
+    name: Cook Biryani
     needs: [hygiene-check, taste-test]
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🍲 Cooking Biryani..."
+      - name: Cooking the Biryani
+        run: echo "Cooking Biryani..."
+
 
   serve-food:
+    name: 🚀 Serve Food
     needs: cook-biryani
     runs-on: ubuntu-latest
     steps:
-      - run: npm run deploy
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: 🍽️ Serve to Customer
+        run: npm run deploy
