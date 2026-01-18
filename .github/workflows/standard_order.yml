@@ -1,0 +1,26 @@
+name: Standard Order
+
+on: push
+
+jobs:
+  biryani-chef:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node (Stove)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Buy Ingredients
+        run: npm install
+
+      - name: Health Inspection
+        run: npm run lint
+
+      - name: Taste Test
+        run: npm test
+
+      - name: Cook Food
+        run: npm run build
